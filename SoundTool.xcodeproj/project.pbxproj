@@ -1,0 +1,473 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4AA594FA1915DBFE0042C1CD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA594F91915DBFE0042C1CD /* Foundation.framework */; };
+		4AA594FC1915DBFE0042C1CD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA594FB1915DBFE0042C1CD /* CoreGraphics.framework */; };
+		4AA594FE1915DBFE0042C1CD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA594FD1915DBFE0042C1CD /* UIKit.framework */; };
+		4AA595041915DBFE0042C1CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4AA595021915DBFE0042C1CD /* InfoPlist.strings */; };
+		4AA595061915DBFE0042C1CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA595051915DBFE0042C1CD /* main.m */; };
+		4AA5950A1915DBFE0042C1CD /* TunaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA595091915DBFE0042C1CD /* TunaAppDelegate.m */; };
+		4AA5950C1915DBFE0042C1CD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AA5950B1915DBFE0042C1CD /* Images.xcassets */; };
+		4AA595131915DBFE0042C1CD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA595121915DBFE0042C1CD /* XCTest.framework */; };
+		4AA595141915DBFE0042C1CD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA594F91915DBFE0042C1CD /* Foundation.framework */; };
+		4AA595151915DBFF0042C1CD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA594FD1915DBFE0042C1CD /* UIKit.framework */; };
+		4AA5951D1915DBFF0042C1CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4AA5951B1915DBFF0042C1CD /* InfoPlist.strings */; };
+		4AA5951F1915DBFF0042C1CD /* SoundToolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5951E1915DBFF0042C1CD /* SoundToolTests.m */; };
+		4AA595291915DC430042C1CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AA595281915DC430042C1CD /* Main.storyboard */; };
+		4AA5952C1915DCC30042C1CD /* TunaSoundToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5952B1915DCC30042C1CD /* TunaSoundToolViewController.m */; };
+		4AA5952F1915FA410042C1CD /* TunaGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5952E1915FA410042C1CD /* TunaGenerator.m */; };
+		4AA59531191601820042C1CD /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA59530191601820042C1CD /* CoreAudio.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4AA595161915DBFF0042C1CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AA594EE1915DBFE0042C1CD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4AA594F51915DBFE0042C1CD;
+			remoteInfo = SoundTool;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4AA594F61915DBFE0042C1CD /* SoundTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AA594F91915DBFE0042C1CD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4AA594FB1915DBFE0042C1CD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4AA594FD1915DBFE0042C1CD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4AA595011915DBFE0042C1CD /* SoundTool-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SoundTool-Info.plist"; sourceTree = "<group>"; };
+		4AA595031915DBFE0042C1CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4AA595051915DBFE0042C1CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4AA595071915DBFE0042C1CD /* SoundTool-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SoundTool-Prefix.pch"; sourceTree = "<group>"; };
+		4AA595081915DBFE0042C1CD /* TunaAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TunaAppDelegate.h; sourceTree = "<group>"; };
+		4AA595091915DBFE0042C1CD /* TunaAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TunaAppDelegate.m; sourceTree = "<group>"; };
+		4AA5950B1915DBFE0042C1CD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4AA595111915DBFE0042C1CD /* SoundToolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundToolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AA595121915DBFE0042C1CD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		4AA5951A1915DBFF0042C1CD /* SoundToolTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SoundToolTests-Info.plist"; sourceTree = "<group>"; };
+		4AA5951C1915DBFF0042C1CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4AA5951E1915DBFF0042C1CD /* SoundToolTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundToolTests.m; sourceTree = "<group>"; };
+		4AA595281915DC430042C1CD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		4AA5952A1915DCC30042C1CD /* TunaSoundToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TunaSoundToolViewController.h; sourceTree = "<group>"; };
+		4AA5952B1915DCC30042C1CD /* TunaSoundToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TunaSoundToolViewController.m; sourceTree = "<group>"; };
+		4AA5952D1915FA410042C1CD /* TunaGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TunaGenerator.h; sourceTree = "<group>"; };
+		4AA5952E1915FA410042C1CD /* TunaGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TunaGenerator.m; sourceTree = "<group>"; };
+		4AA59530191601820042C1CD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4AA594F31915DBFE0042C1CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AA59531191601820042C1CD /* CoreAudio.framework in Frameworks */,
+				4AA594FC1915DBFE0042C1CD /* CoreGraphics.framework in Frameworks */,
+				4AA594FE1915DBFE0042C1CD /* UIKit.framework in Frameworks */,
+				4AA594FA1915DBFE0042C1CD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4AA5950E1915DBFE0042C1CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AA595131915DBFE0042C1CD /* XCTest.framework in Frameworks */,
+				4AA595151915DBFF0042C1CD /* UIKit.framework in Frameworks */,
+				4AA595141915DBFE0042C1CD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4AA594ED1915DBFE0042C1CD = {
+			isa = PBXGroup;
+			children = (
+				4AA594FF1915DBFE0042C1CD /* SoundTool */,
+				4AA595181915DBFF0042C1CD /* SoundToolTests */,
+				4AA594F81915DBFE0042C1CD /* Frameworks */,
+				4AA594F71915DBFE0042C1CD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4AA594F71915DBFE0042C1CD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4AA594F61915DBFE0042C1CD /* SoundTool.app */,
+				4AA595111915DBFE0042C1CD /* SoundToolTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4AA594F81915DBFE0042C1CD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4AA59530191601820042C1CD /* CoreAudio.framework */,
+				4AA594F91915DBFE0042C1CD /* Foundation.framework */,
+				4AA594FB1915DBFE0042C1CD /* CoreGraphics.framework */,
+				4AA594FD1915DBFE0042C1CD /* UIKit.framework */,
+				4AA595121915DBFE0042C1CD /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4AA594FF1915DBFE0042C1CD /* SoundTool */ = {
+			isa = PBXGroup;
+			children = (
+				4AA595081915DBFE0042C1CD /* TunaAppDelegate.h */,
+				4AA595091915DBFE0042C1CD /* TunaAppDelegate.m */,
+				4AA5950B1915DBFE0042C1CD /* Images.xcassets */,
+				4AA595001915DBFE0042C1CD /* Supporting Files */,
+				4AA595281915DC430042C1CD /* Main.storyboard */,
+				4AA5952A1915DCC30042C1CD /* TunaSoundToolViewController.h */,
+				4AA5952B1915DCC30042C1CD /* TunaSoundToolViewController.m */,
+				4AA5952D1915FA410042C1CD /* TunaGenerator.h */,
+				4AA5952E1915FA410042C1CD /* TunaGenerator.m */,
+			);
+			path = SoundTool;
+			sourceTree = "<group>";
+		};
+		4AA595001915DBFE0042C1CD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4AA595011915DBFE0042C1CD /* SoundTool-Info.plist */,
+				4AA595021915DBFE0042C1CD /* InfoPlist.strings */,
+				4AA595051915DBFE0042C1CD /* main.m */,
+				4AA595071915DBFE0042C1CD /* SoundTool-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4AA595181915DBFF0042C1CD /* SoundToolTests */ = {
+			isa = PBXGroup;
+			children = (
+				4AA5951E1915DBFF0042C1CD /* SoundToolTests.m */,
+				4AA595191915DBFF0042C1CD /* Supporting Files */,
+			);
+			path = SoundToolTests;
+			sourceTree = "<group>";
+		};
+		4AA595191915DBFF0042C1CD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4AA5951A1915DBFF0042C1CD /* SoundToolTests-Info.plist */,
+				4AA5951B1915DBFF0042C1CD /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4AA594F51915DBFE0042C1CD /* SoundTool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4AA595221915DBFF0042C1CD /* Build configuration list for PBXNativeTarget "SoundTool" */;
+			buildPhases = (
+				4AA594F21915DBFE0042C1CD /* Sources */,
+				4AA594F31915DBFE0042C1CD /* Frameworks */,
+				4AA594F41915DBFE0042C1CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SoundTool;
+			productName = SoundTool;
+			productReference = 4AA594F61915DBFE0042C1CD /* SoundTool.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4AA595101915DBFE0042C1CD /* SoundToolTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4AA595251915DBFF0042C1CD /* Build configuration list for PBXNativeTarget "SoundToolTests" */;
+			buildPhases = (
+				4AA5950D1915DBFE0042C1CD /* Sources */,
+				4AA5950E1915DBFE0042C1CD /* Frameworks */,
+				4AA5950F1915DBFE0042C1CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4AA595171915DBFF0042C1CD /* PBXTargetDependency */,
+			);
+			name = SoundToolTests;
+			productName = SoundToolTests;
+			productReference = 4AA595111915DBFE0042C1CD /* SoundToolTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4AA594EE1915DBFE0042C1CD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = Tuna;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = kaichuan;
+				TargetAttributes = {
+					4AA595101915DBFE0042C1CD = {
+						TestTargetID = 4AA594F51915DBFE0042C1CD;
+					};
+				};
+			};
+			buildConfigurationList = 4AA594F11915DBFE0042C1CD /* Build configuration list for PBXProject "SoundTool" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4AA594ED1915DBFE0042C1CD;
+			productRefGroup = 4AA594F71915DBFE0042C1CD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4AA594F51915DBFE0042C1CD /* SoundTool */,
+				4AA595101915DBFE0042C1CD /* SoundToolTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4AA594F41915DBFE0042C1CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AA595291915DC430042C1CD /* Main.storyboard in Resources */,
+				4AA595041915DBFE0042C1CD /* InfoPlist.strings in Resources */,
+				4AA5950C1915DBFE0042C1CD /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4AA5950F1915DBFE0042C1CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AA5951D1915DBFF0042C1CD /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4AA594F21915DBFE0042C1CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AA5952C1915DCC30042C1CD /* TunaSoundToolViewController.m in Sources */,
+				4AA5952F1915FA410042C1CD /* TunaGenerator.m in Sources */,
+				4AA5950A1915DBFE0042C1CD /* TunaAppDelegate.m in Sources */,
+				4AA595061915DBFE0042C1CD /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4AA5950D1915DBFE0042C1CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AA5951F1915DBFF0042C1CD /* SoundToolTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4AA595171915DBFF0042C1CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4AA594F51915DBFE0042C1CD /* SoundTool */;
+			targetProxy = 4AA595161915DBFF0042C1CD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4AA595021915DBFE0042C1CD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4AA595031915DBFE0042C1CD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4AA5951B1915DBFF0042C1CD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4AA5951C1915DBFF0042C1CD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4AA595201915DBFF0042C1CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4AA595211915DBFF0042C1CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4AA595231915DBFF0042C1CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SoundTool/SoundTool-Prefix.pch";
+				INFOPLIST_FILE = "SoundTool/SoundTool-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4AA595241915DBFF0042C1CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SoundTool/SoundTool-Prefix.pch";
+				INFOPLIST_FILE = "SoundTool/SoundTool-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		4AA595261915DBFF0042C1CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SoundTool.app/SoundTool";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SoundTool/SoundTool-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SoundToolTests/SoundToolTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		4AA595271915DBFF0042C1CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SoundTool.app/SoundTool";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SoundTool/SoundTool-Prefix.pch";
+				INFOPLIST_FILE = "SoundToolTests/SoundToolTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4AA594F11915DBFE0042C1CD /* Build configuration list for PBXProject "SoundTool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4AA595201915DBFF0042C1CD /* Debug */,
+				4AA595211915DBFF0042C1CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4AA595221915DBFF0042C1CD /* Build configuration list for PBXNativeTarget "SoundTool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4AA595231915DBFF0042C1CD /* Debug */,
+				4AA595241915DBFF0042C1CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4AA595251915DBFF0042C1CD /* Build configuration list for PBXNativeTarget "SoundToolTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4AA595261915DBFF0042C1CD /* Debug */,
+				4AA595271915DBFF0042C1CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4AA594EE1915DBFE0042C1CD /* Project object */;
+}
