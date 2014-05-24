@@ -18,14 +18,11 @@
 @implementation TunaSoundToolViewController
 - (IBAction)gSwitched:(id)sender {
     if (((UISwitch*)sender).on) {
-//        NSLog(@"%lld", self.gNumber.text.longLongValue);
-//        UInt64 number = self.gNumber.text.longLongValue;
-//        NSData *data = [NSData dataWithBytes:&number length:5];
-        
         self.generator = [[TunaGenerator alloc] init:self.gNumber.text];
         [self.generator execute];
     }else{
         [self.generator stop];
+        
     }
     
 }

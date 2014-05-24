@@ -10,7 +10,6 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 
-// default buffer count, 3 is recommend
 static const int kNumberBuffers = 3;
 // save operation err code
 int err;
@@ -28,44 +27,27 @@ AQPlayerState *aqState;
 int freqs[4] = {17700,17900,18100,18300};
 int sampleCount = 441;
 short samples[4][441];
-int indexLength = 24;
-int sIndex = 0;
-int sIndexes[24];
 
+unsigned char byteArr[6];
+int byteIndex = 0;
+int codeIndex = 0;
 bool isFirst = false;
-
-//void generateTone(AudioQueueBufferRef buffer){
-//    int sampleCount = buffer->mAudioDataBytesCapacity / sizeof (SInt16);
-//    double incs = 2*M_PI*17000/44100;
-//    double ang = 0;
-//    SInt16 *p = buffer->mAudioData;
-//    for (int i = 0; i < sampleCount; i++) {
-//        p[i] = sin(ang) * SHRT_MAX;
-//        ang += incs;
-//    }
-//    buffer->mAudioDataByteSize = sampleCount * sizeof (SInt16);
-//}
 void generateTone(AudioQueueBufferRef buffer){
     SInt16 *p = buffer->mAudioData;
     for (int i = 0; i < 441; i++) {
-        if (isFirst){
-            p[i] = samples[0][i];
-        }else{
-           p[i] = samples[3][i];
-//            p[i] = 0;
-        }
-        
-//        p[i] = samples[sIndexes[sIndex]][i];
+        p[i] = samples[(int)((byteArr[byteIndex]>>(2*codeIndex)&3))][i];
+    }
+    codeIndex ++;
+    if (codeIndex == 4){
+        codeIndex = 0;
+        byteIndex ++;
+    }
+    if (byteIndex == 6){
+        byteIndex = 0;
+        codeIndex = 0;
     }
     
     buffer->mAudioDataByteSize = 882;
-//    sIndex ++;
-//    sIndex = sIndex % indexLength;
-    if (isFirst){
-        isFirst = false;
-    }else{
-        isFirst = true;
-    }
 }
 
 static void HandleOutputBuffer (
@@ -85,8 +67,7 @@ static void HandleOutputBuffer (
     if (err != noErr) NSLog(@"AudioQueueEnqueueBuffer() error: %d", err);
 
     
-  
-    
+          
     
 }
 
@@ -102,49 +83,48 @@ NSData* nsData;
 
 
 -(id)init:(NSString *) data{
-    long long phoneNumber = [data longLongValue];
-    NSData *phoneData = [NSData dataWithBytes:&phoneNumber length:sizeof(phoneNumber)];
-    NSData *sendData = [phoneData subdataWithRange:NSMakeRange(3, 5)];
-    //增加标记字段
-    Byte marker = 10;
-    Byte escaper = 88;
-    NSUInteger length = [sendData length];
-    NSMutableData *source = [[NSMutableData alloc] initWithBytes:&marker length:sizeof(marker)];
-    for (NSUInteger i = 0; i < length; i++) {
-        Byte byte;
-        [sendData getBytes:&byte range:NSMakeRange(i, 1)];
-        if (byte == marker) {
-            [source appendBytes:&marker length:sizeof(marker)];
-        }
-        if (byte == escaper) {
-            [source appendBytes:&escaper length:sizeof(escaper)];
-        }
-        [source appendBytes:&byte length:sizeof(byte)];
+    unsigned long long phoneNumber = data.longLongValue;
+//    phoneNumber = 15810536565;
+//    NSData *phoneData = [NSData dataWithBytes:&phoneNumber length:sizeof(phoneNumber)];
+//    NSData *sendData = [phoneData subdataWithRange:NSMakeRange(3, 5)];
+//    //增加标记字段
+//    Byte marker = 10;
+//    Byte escaper = 88;
+//    NSUInteger length = [sendData length];
+//    NSMutableData *source = [[NSMutableData alloc] initWithBytes:&marker length:sizeof(marker)];
+//    for (NSUInteger i = 0; i < length; i++) {
+//        Byte byte;
+//        [sendData getBytes:&byte range:NSMakeRange(i, 1)];
+//        if (byte == marker) {
+//            [source appendBytes:&marker length:sizeof(marker)];
+//        }
+//        if (byte == escaper) {
+//            [source appendBytes:&escaper length:sizeof(escaper)];
+//        }
+//        [source appendBytes:&byte length:sizeof(byte)];
+//    }
+    
+    
+    byteArr[0] = 10;
+    for (int i=1; i<6; i++){
+        byteArr[i] = (int)((phoneNumber>>(8*(5-i)))&0xFF);
+        //printf("%X\n",byteArr[i]);
     }
-//    const void* ds = source.bytes;
     double baseAng = 0;
     double baseInc = (2 * M_PI) * 50 / 44100;
     double ang = 0;
-    double incs[4];
+    double incs;
     for (int i = 0; i < 4; i++) {
-        incs[i] = (2 * M_PI) * freqs[i] / 44100;
+        incs = (2 * M_PI) * freqs[i] / 44100;
         ang = 0;
         baseAng = 0;
         for (int j = 0; j < sampleCount; j++){
             samples[i][j] = (short)((sin(ang)*SHRT_MAX*fabs(sin(baseAng)))/8);
-            ang += incs[i];
+            ang += incs;
             baseAng += baseInc;
         }
     }
-    Byte byte;
-    indexLength = 24;
-    int k = 0;
-    for (int i=0; i<source.length; i++){
-        [source getBytes: &byte range:NSMakeRange(i, 1)];
-        for (int j=0; j<4; j++,k++){
-            sIndexes[k] = byte>>j*2&3;
-        }
-    }
+
     aqState = (AQPlayerState*)malloc(sizeof(AQPlayerState));
     // dataFormat init
     aqState->mDataFormat.mSampleRate = 44100;
