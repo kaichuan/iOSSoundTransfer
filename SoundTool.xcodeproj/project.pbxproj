@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A8DBF5B1931204900772622 /* TunaReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8DBF5A1931204900772622 /* TunaReceiver.m */; };
+		4A8DBF5E19317ECD00772622 /* TunaConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8DBF5D19317ECD00772622 /* TunaConstant.m */; };
+		4A8DBF621931FD6900772622 /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 4A8DBF611931FD6900772622 /* kiss_fft.c */; };
 		4AA594FA1915DBFE0042C1CD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA594F91915DBFE0042C1CD /* Foundation.framework */; };
 		4AA594FC1915DBFE0042C1CD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA594FB1915DBFE0042C1CD /* CoreGraphics.framework */; };
 		4AA594FE1915DBFE0042C1CD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA594FD1915DBFE0042C1CD /* UIKit.framework */; };
@@ -36,6 +39,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A8DBF591931204900772622 /* TunaReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TunaReceiver.h; sourceTree = "<group>"; };
+		4A8DBF5A1931204900772622 /* TunaReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TunaReceiver.m; sourceTree = "<group>"; };
+		4A8DBF5C19317ECD00772622 /* TunaConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TunaConstant.h; sourceTree = "<group>"; };
+		4A8DBF5D19317ECD00772622 /* TunaConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TunaConstant.m; sourceTree = "<group>"; };
+		4A8DBF601931FD5F00772622 /* kiss_fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fft.h; sourceTree = "<group>"; };
+		4A8DBF611931FD6900772622 /* kiss_fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kiss_fft.c; sourceTree = "<group>"; };
+		4A8DBF631931FD8700772622 /* _kiss_fft_guts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _kiss_fft_guts.h; sourceTree = "<group>"; };
 		4AA594F61915DBFE0042C1CD /* SoundTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AA594F91915DBFE0042C1CD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4AA594FB1915DBFE0042C1CD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -85,6 +95,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A8DBF5F1931FCD800772622 /* kiss-fft */ = {
+			isa = PBXGroup;
+			children = (
+				4A8DBF631931FD8700772622 /* _kiss_fft_guts.h */,
+				4A8DBF611931FD6900772622 /* kiss_fft.c */,
+				4A8DBF601931FD5F00772622 /* kiss_fft.h */,
+			);
+			name = "kiss-fft";
+			sourceTree = "<group>";
+		};
 		4AA594ED1915DBFE0042C1CD = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +139,9 @@
 		4AA594FF1915DBFE0042C1CD /* SoundTool */ = {
 			isa = PBXGroup;
 			children = (
+				4A8DBF5F1931FCD800772622 /* kiss-fft */,
+				4A8DBF591931204900772622 /* TunaReceiver.h */,
+				4A8DBF5A1931204900772622 /* TunaReceiver.m */,
 				4AA595081915DBFE0042C1CD /* TunaAppDelegate.h */,
 				4AA595091915DBFE0042C1CD /* TunaAppDelegate.m */,
 				4AA5950B1915DBFE0042C1CD /* Images.xcassets */,
@@ -128,6 +151,8 @@
 				4AA5952B1915DCC30042C1CD /* TunaSoundToolViewController.m */,
 				4AA5952D1915FA410042C1CD /* TunaGenerator.h */,
 				4AA5952E1915FA410042C1CD /* TunaGenerator.m */,
+				4A8DBF5C19317ECD00772622 /* TunaConstant.h */,
+				4A8DBF5D19317ECD00772622 /* TunaConstant.m */,
 			);
 			path = SoundTool;
 			sourceTree = "<group>";
@@ -209,6 +234,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = kaichuan;
 				TargetAttributes = {
+					4AA594F51915DBFE0042C1CD = {
+						DevelopmentTeam = P6J2X5EHRN;
+					};
 					4AA595101915DBFE0042C1CD = {
 						TestTargetID = 4AA594F51915DBFE0042C1CD;
 					};
@@ -259,7 +287,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AA5952C1915DCC30042C1CD /* TunaSoundToolViewController.m in Sources */,
+				4A8DBF621931FD6900772622 /* kiss_fft.c in Sources */,
 				4AA5952F1915FA410042C1CD /* TunaGenerator.m in Sources */,
+				4A8DBF5B1931204900772622 /* TunaReceiver.m in Sources */,
+				4A8DBF5E19317ECD00772622 /* TunaConstant.m in Sources */,
 				4AA5950A1915DBFE0042C1CD /* TunaAppDelegate.m in Sources */,
 				4AA595061915DBFE0042C1CD /* main.m in Sources */,
 			);
@@ -378,10 +409,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SoundTool/SoundTool-Prefix.pch";
 				INFOPLIST_FILE = "SoundTool/SoundTool-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -391,10 +426,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SoundTool/SoundTool-Prefix.pch";
 				INFOPLIST_FILE = "SoundTool/SoundTool-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -458,6 +497,7 @@
 				4AA595241915DBFF0042C1CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4AA595251915DBFF0042C1CD /* Build configuration list for PBXNativeTarget "SoundToolTests" */ = {
 			isa = XCConfigurationList;
@@ -466,6 +506,7 @@
 				4AA595271915DBFF0042C1CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
