@@ -23,9 +23,10 @@
 		4AA5951D1915DBFF0042C1CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4AA5951B1915DBFF0042C1CD /* InfoPlist.strings */; };
 		4AA5951F1915DBFF0042C1CD /* SoundToolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5951E1915DBFF0042C1CD /* SoundToolTests.m */; };
 		4AA595291915DC430042C1CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AA595281915DC430042C1CD /* Main.storyboard */; };
-		4AA5952C1915DCC30042C1CD /* TunaSoundToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5952B1915DCC30042C1CD /* TunaSoundToolViewController.m */; };
+		4AA5952C1915DCC30042C1CD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5952B1915DCC30042C1CD /* ViewController.m */; };
 		4AA5952F1915FA410042C1CD /* TunaGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5952E1915FA410042C1CD /* TunaGenerator.m */; };
 		4AA59531191601820042C1CD /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA59530191601820042C1CD /* CoreAudio.framework */; };
+		B1F6BBEA19346B4400991E4E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F6BBE919346B4400991E4E /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,11 +64,12 @@
 		4AA5951C1915DBFF0042C1CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4AA5951E1915DBFF0042C1CD /* SoundToolTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundToolTests.m; sourceTree = "<group>"; };
 		4AA595281915DC430042C1CD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		4AA5952A1915DCC30042C1CD /* TunaSoundToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TunaSoundToolViewController.h; sourceTree = "<group>"; };
-		4AA5952B1915DCC30042C1CD /* TunaSoundToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TunaSoundToolViewController.m; sourceTree = "<group>"; };
+		4AA5952A1915DCC30042C1CD /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		4AA5952B1915DCC30042C1CD /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4AA5952D1915FA410042C1CD /* TunaGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TunaGenerator.h; sourceTree = "<group>"; };
 		4AA5952E1915FA410042C1CD /* TunaGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TunaGenerator.m; sourceTree = "<group>"; };
 		4AA59530191601820042C1CD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		B1F6BBE919346B4400991E4E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1F6BBEA19346B4400991E4E /* AudioToolbox.framework in Frameworks */,
 				4AA59531191601820042C1CD /* CoreAudio.framework in Frameworks */,
 				4AA594FC1915DBFE0042C1CD /* CoreGraphics.framework in Frameworks */,
 				4AA594FE1915DBFE0042C1CD /* UIKit.framework in Frameworks */,
@@ -127,6 +130,7 @@
 		4AA594F81915DBFE0042C1CD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B1F6BBE919346B4400991E4E /* AudioToolbox.framework */,
 				4AA59530191601820042C1CD /* CoreAudio.framework */,
 				4AA594F91915DBFE0042C1CD /* Foundation.framework */,
 				4AA594FB1915DBFE0042C1CD /* CoreGraphics.framework */,
@@ -139,20 +143,20 @@
 		4AA594FF1915DBFE0042C1CD /* SoundTool */ = {
 			isa = PBXGroup;
 			children = (
-				4A8DBF5F1931FCD800772622 /* kiss-fft */,
-				4A8DBF591931204900772622 /* TunaReceiver.h */,
-				4A8DBF5A1931204900772622 /* TunaReceiver.m */,
 				4AA595081915DBFE0042C1CD /* TunaAppDelegate.h */,
 				4AA595091915DBFE0042C1CD /* TunaAppDelegate.m */,
-				4AA5950B1915DBFE0042C1CD /* Images.xcassets */,
-				4AA595001915DBFE0042C1CD /* Supporting Files */,
+				4AA5952A1915DCC30042C1CD /* ViewController.h */,
+				4AA5952B1915DCC30042C1CD /* ViewController.m */,
 				4AA595281915DC430042C1CD /* Main.storyboard */,
-				4AA5952A1915DCC30042C1CD /* TunaSoundToolViewController.h */,
-				4AA5952B1915DCC30042C1CD /* TunaSoundToolViewController.m */,
+				4A8DBF591931204900772622 /* TunaReceiver.h */,
+				4A8DBF5A1931204900772622 /* TunaReceiver.m */,
 				4AA5952D1915FA410042C1CD /* TunaGenerator.h */,
 				4AA5952E1915FA410042C1CD /* TunaGenerator.m */,
 				4A8DBF5C19317ECD00772622 /* TunaConstant.h */,
 				4A8DBF5D19317ECD00772622 /* TunaConstant.m */,
+				4A8DBF5F1931FCD800772622 /* kiss-fft */,
+				4AA5950B1915DBFE0042C1CD /* Images.xcassets */,
+				4AA595001915DBFE0042C1CD /* Supporting Files */,
 			);
 			path = SoundTool;
 			sourceTree = "<group>";
@@ -286,7 +290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AA5952C1915DCC30042C1CD /* TunaSoundToolViewController.m in Sources */,
+				4AA5952C1915DCC30042C1CD /* ViewController.m in Sources */,
 				4A8DBF621931FD6900772622 /* kiss_fft.c in Sources */,
 				4AA5952F1915FA410042C1CD /* TunaGenerator.m in Sources */,
 				4A8DBF5B1931204900772622 /* TunaReceiver.m in Sources */,

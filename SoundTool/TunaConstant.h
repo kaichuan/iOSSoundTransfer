@@ -13,24 +13,5 @@
 #define SAMPLE_RATE 44100
 #define FFT_SIZE 441
 
-@interface TunaConstant : NSObject
-
-//typedef struct _AQState {
-//    const AudioStreamBasicDescription   *mDataFormat;
-//    AudioQueueRef                       mQueue;
-//    AudioQueueBufferRef                 mBuffers[NUMBER_BUFFERS];
-//    bool                                mIsRunning;
-//    UInt16                              bufferByteSize;
-//}AQState;
-
-
-extern const int FREQUENCIES[];
-extern const AudioStreamBasicDescription mDataFormat;
-
-
-
-
-
-
-
-@end
+extern int const FREQUENCIES[];
+extern AudioStreamBasicDescription const mDataFormat;

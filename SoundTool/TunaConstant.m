@@ -7,7 +7,6 @@
 //
 #import "TunaConstant.h"
 
-@implementation TunaConstant
 const int FREQUENCIES[] = {17700,17900,18100,18300};
 
 const AudioStreamBasicDescription mDataFormat = {
@@ -16,33 +15,3 @@ const AudioStreamBasicDescription mDataFormat = {
     kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked,
     2,1,2,1,16,0
 };
-
-//AQState saqState = {
-//    &mDataFormat,
-//    
-//};
-//
-//
-//
-//
-//
-//AQState *getInitState(){
-//      AQState *aqState = (AQState*)malloc(sizeof(AQState));
-//    //    aqState->mDataFormat.mSampleRate = SAMPLE_RATE;
-////    aqState->mDataFormat.mFormatID = kAudioFormatLinearPCM;
-////    aqState->mDataFormat.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
-////    aqState->mDataFormat.mBytesPerPacket = 2;
-////    aqState->mDataFormat.mChannelsPerFrame = 1;
-////    aqState->mDataFormat.mBytesPerFrame = 2;
-////    aqState->mDataFormat.mFramesPerPacket = 1;
-////    aqState->mDataFormat.mBitsPerChannel = 8 * 2;
-////    aqState->mDataFormat.mReserved = 0;
-//    aqState->bufferByteSize  = FFT_SIZE * 2;
-//    return aqState;
-//};
-
-
-
-
-
-@end
