@@ -10,18 +10,18 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 
-#import "TunaGenerator.h"
-#import "TunaReceiver.h"
+#import "SonicWaveRequest.h"
+#import "SonicWaveResponder.h"
 
 @interface ViewController () <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *gNumber;
-@property (weak, nonatomic) IBOutlet UISwitch *gSwitch;
-@property (weak, nonatomic) IBOutlet UITextField *rNumber;
-@property (weak, nonatomic) IBOutlet UISwitch *rSwitch;
+@property (weak, nonatomic) IBOutlet UITextField *sendTextField;
+@property (weak, nonatomic) IBOutlet UISwitch *sendSwitch;
+@property (weak, nonatomic) IBOutlet UITextField *receviceTextField;
+@property (weak, nonatomic) IBOutlet UISwitch *receviceSwitch;
 
-@property (strong) TunaGenerator *generator;
-@property (strong) TunaReceiver *receiver;
+@property (strong) SonicWaveRequest *waveRequest;
+@property (strong) SonicWaveResponder *waveResponder;
 
 @end
 
@@ -30,11 +30,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.gNumber setDelegate:self];
+    
+    self.waveRequest = [[SonicWaveRequest alloc] init];
+//    self.waveResponder = [[SonicWaveResponder alloc] init];
+    
+    
+    [self.sendTextField setDelegate:self];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateTextField:) name:@"TunaReceivedData" object:nil];
-    
+                                             selector:@selector(updateTextField:)
+                                                 name:@"TunaReceivedData"
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,25 +53,23 @@
 - (void)updateTextField:(NSNotification *)n
 {
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    self.rNumber.text = [[n object] stringValue];
+    self.receviceTextField.text = [[n object] stringValue];
 }
 
 - (IBAction)gSwitched:(id)sender {
+    [self.sendTextField resignFirstResponder];
     if (((UISwitch*)sender).on) {
-        self.generator = [[TunaGenerator alloc] init:self.gNumber.text];
-        [self.generator execute];
+        [self.waveRequest startSendData:@([self.sendTextField.text longLongValue]) completeHander:nil];
     }else{
-        [self.generator stop];
-        
+        [self.waveRequest stopSendData];
     }
     
 }
 - (IBAction)rSwitched:(id)sender {
     if (((UISwitch*)sender).on) {
-        self.receiver = [[TunaReceiver alloc] init];
-        [self.receiver execute];
+        [self.waveResponder execute];
     }else{
-        [self.receiver stop];
+        [self.waveResponder stop];
         
     }
 }
@@ -78,13 +82,19 @@
         return NO;
     }
     if (newLength == 11){
-        self.gSwitch.enabled = YES;
+        self.sendSwitch.enabled = YES;
     }else{
-        self.gSwitch.enabled = NO;
+        self.sendSwitch.enabled = NO;
     }
     NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
     NSString *filteredstring  = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
     return ([string isEqualToString:filteredstring]);
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

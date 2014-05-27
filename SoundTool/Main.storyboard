@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RL0-na-hvV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="dws-Sj-zoS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -20,7 +20,7 @@
                                 <rect key="frame" x="20" y="96" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="N6P-NW-5IP">
                                 <rect key="frame" x="251" y="134" width="51" height="31"/>
@@ -45,14 +45,33 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="DPJ-J0-vbF"/>
                     <connections>
-                        <outlet property="gNumber" destination="VPY-mF-Y80" id="WPi-gl-lkX"/>
-                        <outlet property="gSwitch" destination="N6P-NW-5IP" id="zf5-dW-Xfj"/>
-                        <outlet property="rNumber" destination="dKa-QI-62y" id="feL-ZI-pbH"/>
-                        <outlet property="rSwitch" destination="UUk-3t-rge" id="fxS-W8-Gwd"/>
+                        <outlet property="receviceSwitch" destination="UUk-3t-rge" id="NuU-Us-SdG"/>
+                        <outlet property="receviceTextField" destination="dKa-QI-62y" id="5xR-QM-9IN"/>
+                        <outlet property="sendSwitch" destination="N6P-NW-5IP" id="UUV-6a-tWa"/>
+                        <outlet property="sendTextField" destination="VPY-mF-Y80" id="smJ-p2-oOR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BTt-3m-6di" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="634" y="3"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gl4-iN-sPo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dws-Sj-zoS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hBk-SF-R6b">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="RL0-na-hvV" kind="relationship" relationship="rootViewController" id="s14-Yj-RZV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FeT-EV-u13" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="151" y="9"/>
         </scene>

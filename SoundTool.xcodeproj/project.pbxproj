@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A8DBF5B1931204900772622 /* TunaReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8DBF5A1931204900772622 /* TunaReceiver.m */; };
+		4A8DBF5B1931204900772622 /* SonicWaveResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8DBF5A1931204900772622 /* SonicWaveResponder.m */; };
 		4A8DBF5E19317ECD00772622 /* TunaConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8DBF5D19317ECD00772622 /* TunaConstant.m */; };
 		4A8DBF621931FD6900772622 /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 4A8DBF611931FD6900772622 /* kiss_fft.c */; };
 		4AA594FA1915DBFE0042C1CD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA594F91915DBFE0042C1CD /* Foundation.framework */; };
@@ -24,8 +24,9 @@
 		4AA5951F1915DBFF0042C1CD /* SoundToolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5951E1915DBFF0042C1CD /* SoundToolTests.m */; };
 		4AA595291915DC430042C1CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AA595281915DC430042C1CD /* Main.storyboard */; };
 		4AA5952C1915DCC30042C1CD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5952B1915DCC30042C1CD /* ViewController.m */; };
-		4AA5952F1915FA410042C1CD /* TunaGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5952E1915FA410042C1CD /* TunaGenerator.m */; };
+		4AA5952F1915FA410042C1CD /* SonicWaveRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA5952E1915FA410042C1CD /* SonicWaveRequest.m */; };
 		4AA59531191601820042C1CD /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA59530191601820042C1CD /* CoreAudio.framework */; };
+		B157EEDF193496090043F11F /* SendingData.wav in Resources */ = {isa = PBXBuildFile; fileRef = B157EEDE193496090043F11F /* SendingData.wav */; };
 		B1F6BBEA19346B4400991E4E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F6BBE919346B4400991E4E /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,8 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4A8DBF591931204900772622 /* TunaReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TunaReceiver.h; sourceTree = "<group>"; };
-		4A8DBF5A1931204900772622 /* TunaReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TunaReceiver.m; sourceTree = "<group>"; };
+		4A8DBF591931204900772622 /* SonicWaveResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SonicWaveResponder.h; sourceTree = "<group>"; };
+		4A8DBF5A1931204900772622 /* SonicWaveResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SonicWaveResponder.m; sourceTree = "<group>"; };
 		4A8DBF5C19317ECD00772622 /* TunaConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TunaConstant.h; sourceTree = "<group>"; };
 		4A8DBF5D19317ECD00772622 /* TunaConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TunaConstant.m; sourceTree = "<group>"; };
 		4A8DBF601931FD5F00772622 /* kiss_fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fft.h; sourceTree = "<group>"; };
@@ -66,9 +67,10 @@
 		4AA595281915DC430042C1CD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4AA5952A1915DCC30042C1CD /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		4AA5952B1915DCC30042C1CD /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		4AA5952D1915FA410042C1CD /* TunaGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TunaGenerator.h; sourceTree = "<group>"; };
-		4AA5952E1915FA410042C1CD /* TunaGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TunaGenerator.m; sourceTree = "<group>"; };
+		4AA5952D1915FA410042C1CD /* SonicWaveRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SonicWaveRequest.h; sourceTree = "<group>"; };
+		4AA5952E1915FA410042C1CD /* SonicWaveRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SonicWaveRequest.m; sourceTree = "<group>"; };
 		4AA59530191601820042C1CD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		B157EEDE193496090043F11F /* SendingData.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = SendingData.wav; sourceTree = "<group>"; };
 		B1F6BBE919346B4400991E4E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -148,10 +150,10 @@
 				4AA5952A1915DCC30042C1CD /* ViewController.h */,
 				4AA5952B1915DCC30042C1CD /* ViewController.m */,
 				4AA595281915DC430042C1CD /* Main.storyboard */,
-				4A8DBF591931204900772622 /* TunaReceiver.h */,
-				4A8DBF5A1931204900772622 /* TunaReceiver.m */,
-				4AA5952D1915FA410042C1CD /* TunaGenerator.h */,
-				4AA5952E1915FA410042C1CD /* TunaGenerator.m */,
+				4AA5952D1915FA410042C1CD /* SonicWaveRequest.h */,
+				4AA5952E1915FA410042C1CD /* SonicWaveRequest.m */,
+				4A8DBF591931204900772622 /* SonicWaveResponder.h */,
+				4A8DBF5A1931204900772622 /* SonicWaveResponder.m */,
 				4A8DBF5C19317ECD00772622 /* TunaConstant.h */,
 				4A8DBF5D19317ECD00772622 /* TunaConstant.m */,
 				4A8DBF5F1931FCD800772622 /* kiss-fft */,
@@ -164,6 +166,7 @@
 		4AA595001915DBFE0042C1CD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B157EEDE193496090043F11F /* SendingData.wav */,
 				4AA595011915DBFE0042C1CD /* SoundTool-Info.plist */,
 				4AA595021915DBFE0042C1CD /* InfoPlist.strings */,
 				4AA595051915DBFE0042C1CD /* main.m */,
@@ -270,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AA595291915DC430042C1CD /* Main.storyboard in Resources */,
+				B157EEDF193496090043F11F /* SendingData.wav in Resources */,
 				4AA595041915DBFE0042C1CD /* InfoPlist.strings in Resources */,
 				4AA5950C1915DBFE0042C1CD /* Images.xcassets in Resources */,
 			);
@@ -292,8 +296,8 @@
 			files = (
 				4AA5952C1915DCC30042C1CD /* ViewController.m in Sources */,
 				4A8DBF621931FD6900772622 /* kiss_fft.c in Sources */,
-				4AA5952F1915FA410042C1CD /* TunaGenerator.m in Sources */,
-				4A8DBF5B1931204900772622 /* TunaReceiver.m in Sources */,
+				4AA5952F1915FA410042C1CD /* SonicWaveRequest.m in Sources */,
+				4A8DBF5B1931204900772622 /* SonicWaveResponder.m in Sources */,
 				4A8DBF5E19317ECD00772622 /* TunaConstant.m in Sources */,
 				4AA5950A1915DBFE0042C1CD /* TunaAppDelegate.m in Sources */,
 				4AA595061915DBFE0042C1CD /* main.m in Sources */,
