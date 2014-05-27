@@ -8,10 +8,15 @@
 
 #import "TunaSoundToolViewController.h"
 #import "TunaGenerator.h"
+#import "TunaReceiver.h"
 @interface TunaSoundToolViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *gNumber;
 @property (weak, nonatomic) IBOutlet UISwitch *gSwitch;
+@property (weak, nonatomic) IBOutlet UITextField *rNumber;
+
+@property (weak, nonatomic) IBOutlet UISwitch *rSwitch;
 @property (strong) TunaGenerator *generator;
+@property (strong) TunaReceiver *receiver;
 
 @end
 
@@ -26,6 +31,15 @@
     }
     
 }
+- (IBAction)rSwitched:(id)sender {
+    if (((UISwitch*)sender).on) {
+        self.receiver = [[TunaReceiver alloc] init];
+        [self.receiver execute];
+    }else{
+        [self.receiver stop];
+        
+    }
+}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
@@ -35,18 +49,13 @@
         return NO;
     }
     if (newLength == 11){
-      self.gSwitch.enabled = YES;
+        self.gSwitch.enabled = YES;
     }else{
-      self.gSwitch.enabled = NO;
+        self.gSwitch.enabled = NO;
     }
-    
- 
-
     NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
     NSString *filteredstring  = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
     return ([string isEqualToString:filteredstring]);
-    
-    
 }
 
 
@@ -64,8 +73,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self.gNumber setDelegate:self];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateTextField:) name:@"TunaReceivedData" object:nil];
+  
+}
+
+- (void)updateTextField:(NSNotification *)n
+{
+    self.rNumber.text = [[n object] stringValue];
 }
 
 - (void)didReceiveMemoryWarning

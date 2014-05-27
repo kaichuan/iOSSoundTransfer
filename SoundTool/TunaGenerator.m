@@ -65,10 +65,6 @@ static void HandleOutputBuffer (
     generateTone(inBuffer);
     err = AudioQueueEnqueueBuffer(inAQ, inBuffer, 0, nil);
     if (err != noErr) NSLog(@"AudioQueueEnqueueBuffer() error: %d", err);
-
-    
-          
-    
 }
 
 NSData* nsData;
@@ -84,31 +80,11 @@ NSData* nsData;
 
 -(id)init:(NSString *) data{
     unsigned long long phoneNumber = data.longLongValue;
-//    phoneNumber = 15810536565;
-//    NSData *phoneData = [NSData dataWithBytes:&phoneNumber length:sizeof(phoneNumber)];
-//    NSData *sendData = [phoneData subdataWithRange:NSMakeRange(3, 5)];
-//    //增加标记字段
-//    Byte marker = 10;
-//    Byte escaper = 88;
-//    NSUInteger length = [sendData length];
-//    NSMutableData *source = [[NSMutableData alloc] initWithBytes:&marker length:sizeof(marker)];
-//    for (NSUInteger i = 0; i < length; i++) {
-//        Byte byte;
-//        [sendData getBytes:&byte range:NSMakeRange(i, 1)];
-//        if (byte == marker) {
-//            [source appendBytes:&marker length:sizeof(marker)];
-//        }
-//        if (byte == escaper) {
-//            [source appendBytes:&escaper length:sizeof(escaper)];
-//        }
-//        [source appendBytes:&byte length:sizeof(byte)];
-//    }
-    
+
     
     byteArr[0] = 10;
     for (int i=1; i<6; i++){
         byteArr[i] = (int)((phoneNumber>>(8*(5-i)))&0xFF);
-        //printf("%X\n",byteArr[i]);
     }
     double baseAng = 0;
     double baseInc = (2 * M_PI) * 50 / 44100;
@@ -183,11 +159,6 @@ NSData* nsData;
     }
 }
 -(void)stop{
-    printf("DDDD");
-    NSLog(@"%d", [NSThread isMainThread]);
-
     aqState->mIsRunning = false;
-    
-    
 }
 @end

@@ -15,15 +15,17 @@
 
 @interface TunaConstant : NSObject
 
-typedef struct _AQState {
-    AudioStreamBasicDescription   mDataFormat;
-    AudioQueueRef                 mQueue;
-    AudioQueueBufferRef           mBuffers[NUMBER_BUFFERS];
-    bool                          mIsRunning;
-    UInt16                         bufferByteSize;
-}AQState;
+//typedef struct _AQState {
+//    const AudioStreamBasicDescription   *mDataFormat;
+//    AudioQueueRef                       mQueue;
+//    AudioQueueBufferRef                 mBuffers[NUMBER_BUFFERS];
+//    bool                                mIsRunning;
+//    UInt16                              bufferByteSize;
+//}AQState;
+
+
 extern const int FREQUENCIES[];
-AQState *getInitState();
+extern const AudioStreamBasicDescription mDataFormat;
 
 
 
