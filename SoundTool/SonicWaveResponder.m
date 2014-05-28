@@ -22,6 +22,7 @@ static int targetIndex = 0;
 static char markerIndex = 0;
 static char bIndex = 0;
 static long long result = 0;
+static long long preResult = 0;
 
 static void AudioQueueInputBufferCallback (void *userData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer, const AudioTimeStamp *inStartTime, UInt32 inNumPackets, const AudioStreamPacketDescription  *inPacketDesc);
 
@@ -167,11 +168,17 @@ void AudioQueueInputBufferCallback (void *userData, AudioQueueRef inAQ, AudioQue
             bIndex++;
             markerIndex = 0;
             if (bIndex == 5) {
-                if (responder.completeHander) {
-                    responder.completeHander(@(result));
+                
+                if (result == preResult) {
+                    if (responder.completeHander) {
+                        responder.completeHander(@(result));
+                    }
+                    responder->mIsRunning = false;
+                    [responder resetData];
+                }else {
+                    preResult = result;
                 }
-                responder->mIsRunning = false;
-                [responder resetData];
+                
             } else
             result = result  << 8;
         }
