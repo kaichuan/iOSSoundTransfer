@@ -7,61 +7,132 @@
 //
 
 #import "SonicWaveResponder.h"
-#import "TunaConstant.h"
+#import <AudioToolbox/AudioToolbox.h>
+
 #import "kiss_fft.h"
 
+static int const kNumberOfBuffers = 3;
+static int const kSampleRate = 44100;
+static int const kFftSize = 441;
+
+static bool isDecording = false;
+static float energy = 0;
+static float maxEnergy = 0;
+static int targetIndex = 0;
+static char markerIndex = 0;
+static char bIndex = 0;
+static long long result = 0;
+
+static void AudioQueueInputBufferCallback (void *userData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer, const AudioTimeStamp *inStartTime, UInt32 inNumPackets, const AudioStreamPacketDescription  *inPacketDesc);
+
+
+#pragma mark -
+
+@interface SonicWaveResponder () {
+@public
+    BOOL mIsRunning;
+    kiss_fft_cfg cfg;
+    kiss_fft_cpx *cx_in;
+    kiss_fft_cpx *cx_out;
+    AudioStreamBasicDescription dataDescription;
+    AudioQueueRef audioQueue;
+    AudioQueueBufferRef mBuffers[kNumberOfBuffers];
+}
+@property (nonatomic, copy) void (^completeHander)(NSNumber *number);
+@end
 
 @implementation SonicWaveResponder
 
+- (void)dealloc
+{
+    if (mIsRunning) {
+        [self stopReceviceData];
+    }
+    kiss_fft_cleanup();
+    AudioQueueDispose(audioQueue, true);
+}
 
-//AQState *aqState;
-kiss_fft_cfg cfg;
-kiss_fft_cpx *cx_in;
-kiss_fft_cpx *cx_out;
-float energy = 0;
-float maxEnergy = 0;
-int targetIndex = 0;
-int targetBins[4] = { 177, 179, 181, 183 };
-bool isDecording = false;
-
-char marker[4] = { 2, 2, 0, 0 };
-char markerIndex = 0;
-char bIndex = 0;
-
-long long result = 0, preGet = 0;
-
-
-bool mIsRunning = false;
-
-AudioQueueRef mQueue;
-AudioQueueBufferRef mBuffers[NUMBER_BUFFERS];
-UInt16 bufferByteSize = FFT_SIZE * 2;
-
-static void HandleInputBuffer (
-                               void                                *aqData,
-                               AudioQueueRef                       inAQ,
-                               AudioQueueBufferRef                 inBuffer,
-                               const AudioTimeStamp                *inStartTime,
-                               UInt32                              inNumPackets,
-                               const AudioStreamPacketDescription  *inPacketDesc
-                               ){
-    
-    if (!mIsRunning){
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        dataDescription.mSampleRate = kSampleRate;
+        dataDescription.mFormatID = kAudioFormatLinearPCM;
+        dataDescription.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+        dataDescription.mBytesPerPacket = 2;
+        dataDescription.mFramesPerPacket = 1;
+        dataDescription.mBytesPerFrame = 2,
+        dataDescription.mChannelsPerFrame = 1;
+        dataDescription.mBitsPerChannel = 16;
+        dataDescription.mReserved = 0;
         
-        AudioQueueStop(inAQ, true);
-        AudioQueueDispose(inAQ,true);
+        cfg = kiss_fft_alloc(kFftSize, NO, 0, 0);
+        cx_in = (kiss_fft_cpx*)malloc(sizeof(kiss_fft_cpx)*kFftSize);
+        cx_out = (kiss_fft_cpx*)malloc(sizeof(kiss_fft_cpx)*kFftSize);
+    }
+    return self;
+}
+
+- (void)startRecevieDataWithCompleteHander:(void (^)(NSNumber *))completeHander
+{
+    self.completeHander = completeHander;
+    AudioQueueNewInput(&dataDescription,
+                       AudioQueueInputBufferCallback,
+                       (__bridge void *)(self),
+                       NULL,
+                       NULL,
+                       0,
+                       &audioQueue);
+    for (int i = 0; i < kNumberOfBuffers; i++) {
+        AudioQueueAllocateBuffer (audioQueue, kFftSize * 2, &mBuffers[i]);
+        AudioQueueEnqueueBuffer (audioQueue, mBuffers[i], 0, NULL);
+    }
+    
+    AudioQueueStart(audioQueue, NULL);
+    mIsRunning = YES;
+};
+
+- (void)stopReceviceData
+{
+    mIsRunning = NO;
+}
+
+- (void)resetData
+{
+    for (int i = 0; i < kNumberOfBuffers; i++) {
+        AudioQueueFreeBuffer(audioQueue, mBuffers[i]);
+    }
+    energy = maxEnergy = targetIndex = markerIndex = bIndex = result = 0;
+    isDecording = false;
+    AudioQueueStop(audioQueue, true);
+    AudioQueueReset(audioQueue);
+}
+
+@end
+
+
+#pragma mark -
+void AudioQueueInputBufferCallback (void *userData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer, const AudioTimeStamp *inStartTime, UInt32 inNumPackets, const AudioStreamPacketDescription *inPacketDesc) {
+    
+    SonicWaveResponder *responder = (__bridge SonicWaveResponder *)userData;
+    if (!responder->mIsRunning){
+        [responder resetData];
         return;
     }
+    
+    static int const targetBins[4] = { 177, 179, 181, 183 };
+    static char const marker[4] = { 2, 2, 0, 0 };
+
     SInt16 *p = inBuffer->mAudioData;
-    for (int i = 0; i < FFT_SIZE; i++) {
-        cx_in[i].r = p[i];
-        cx_in[i].i = 0;
+    for (int i = 0; i < kFftSize; i++) {
+        responder->cx_in[i].r = p[i];
+        responder->cx_in[i].i = 0;
     }
     
-    kiss_fft(cfg, cx_in, cx_out);
+    kiss_fft(responder->cfg,responder->cx_in, responder->cx_out);
     maxEnergy = 0;
     for (int i = 0; i < 4; i++) {
-        energy = sqrt(powf(cx_out[targetBins[i]].r, 2)+ powf(cx_out[targetBins[i]].i, 2));
+        energy = sqrt(powf(responder->cx_out[targetBins[i]].r, 2)+ powf(responder->cx_out[targetBins[i]].i, 2));
         if (maxEnergy < energy) {
             targetIndex = i;
             maxEnergy = energy;
@@ -90,92 +161,21 @@ static void HandleInputBuffer (
         }
     }
     else{
-//        NSLog(@"%d", targetIndex);
         result = ((targetIndex << (2 * markerIndex)) | result);
         markerIndex++;
         if (markerIndex == 4) {
             bIndex++;
             markerIndex = 0;
-            NSLog(@"%lld", result);
             if (bIndex == 5) {
-                isDecording = false;
-                bIndex = 0;
-//                NSLog(@"%lld", result);
-
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"TunaReceivedData" object:[NSNumber numberWithLongLong:result]];
-                
-                mIsRunning = false;
-                AudioQueueStop(inAQ, true);
-                AudioQueueDispose(inAQ,true);
-            }else
+                if (responder.completeHander) {
+                    responder.completeHander(@(result));
+                }
+                responder->mIsRunning = false;
+                [responder resetData];
+            } else
             result = result  << 8;
-//            NSLog(@"%d:%d:%f", (unsigned int)inNumPackets,targetIndex,maxEnergy);
-            
         }
-        
     }
-    
     
     AudioQueueEnqueueBuffer(inAQ,inBuffer,0,NULL);
-    
 };
-
-int err;
-
--(id) init {
-    cfg = kiss_fft_alloc(FFT_SIZE, NO, 0, 0);
-    cx_in = (kiss_fft_cpx*)malloc(sizeof(kiss_fft_cpx)*FFT_SIZE);
-    cx_out = (kiss_fft_cpx*)malloc(sizeof(kiss_fft_cpx)*FFT_SIZE);
-    
-    
-    
-    
-    return [super init];
-}
-
-
-
--(void)execute {
-    
-    
-    
-    err = AudioQueueNewInput(&mDataFormat,
-                             HandleInputBuffer,
-                             NULL,
-                             NULL,
-                             NULL,
-                             0,
-                             &mQueue);
-    if (err != noErr) NSLog(@"AudioQueueNewInput() error: %d", err);
-    
-    
-    
-    for (int i = 0; i < NUMBER_BUFFERS; i++) {
-        err = AudioQueueAllocateBuffer (
-                                        mQueue,
-                                        bufferByteSize,
-                                        &mBuffers[i]
-                                        );
-        if (err != noErr) NSLog(@"AudioQueueAllocateBuffer() error: %d", err);
-        
-        err = AudioQueueEnqueueBuffer (
-                                       mQueue,
-                                       mBuffers[i],
-                                       0,
-                                       NULL
-                                       );
-        if (err != noErr) NSLog(@"AudioQueueEnqueueBuffer() error: %d", err);
-        
-    }
-    
-    
-    mIsRunning = YES;
-    err = AudioQueueStart(mQueue, NULL);
-    if (err != noErr) NSLog(@"AudioQueueStart() error: %d", err);
-    
-};
--(void)stop{
-    mIsRunning = NO;
-};
-
-@end

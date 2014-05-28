@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 #import <AudioToolbox/AudioToolbox.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 #import "SonicWaveRequest.h"
 #import "SonicWaveResponder.h"
@@ -20,8 +21,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *receviceTextField;
 @property (weak, nonatomic) IBOutlet UISwitch *receviceSwitch;
 
-@property (strong) SonicWaveRequest *waveRequest;
-@property (strong) SonicWaveResponder *waveResponder;
+@property (strong, nonatomic) SonicWaveRequest *waveRequest;
+@property (strong, nonatomic) SonicWaveResponder *waveResponder;
+@property (nonatomic, strong) MPMoviePlayerController *player;
+
+@property (nonatomic, strong) NSTimer *timer;
 
 @end
 
@@ -31,16 +35,12 @@
 {
     [super viewDidLoad];
     
-    self.waveRequest = [[SonicWaveRequest alloc] init];
-//    self.waveResponder = [[SonicWaveResponder alloc] init];
+    self.player = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"SendingData" ofType:@"wav"]]];
     
+    self.waveRequest = [[SonicWaveRequest alloc] init];
+    self.waveResponder = [[SonicWaveResponder alloc] init];
     
     [self.sendTextField setDelegate:self];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateTextField:)
-                                                 name:@"TunaReceivedData"
-                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,27 +49,37 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-- (void)updateTextField:(NSNotification *)n
+- (void)playBackgroundMusic
 {
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    self.receviceTextField.text = [[n object] stringValue];
+    [self.player play];
 }
 
 - (IBAction)gSwitched:(id)sender {
     [self.sendTextField resignFirstResponder];
     if (((UISwitch*)sender).on) {
         [self.waveRequest startSendData:@([self.sendTextField.text longLongValue]) completeHander:nil];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:3
+                                         target:self
+                                             selector:@selector(playBackgroundMusic)
+                                       userInfo:nil
+                                        repeats:YES];
+        [self.timer fire];
     }else{
         [self.waveRequest stopSendData];
+        [self.timer invalidate];
+        [self.player pause];
     }
-    
+
 }
 - (IBAction)rSwitched:(id)sender {
     if (((UISwitch*)sender).on) {
-        [self.waveResponder execute];
+        [self.waveResponder startRecevieDataWithCompleteHander:^(NSNumber *number) {
+            self.receviceTextField.text = [number stringValue];
+            self.receviceSwitch.on = NO;
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }];
     }else{
-        [self.waveResponder stop];
+        [self.waveResponder stopReceviceData];
         
     }
 }

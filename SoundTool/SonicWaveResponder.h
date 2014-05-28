@@ -11,7 +11,7 @@
 
 @interface SonicWaveResponder : NSObject
 
--(void)execute;
--(void)stop;
+- (void)startRecevieDataWithCompleteHander:(void (^)(NSNumber *))completeHander;
+- (void)stopReceviceData;
 
 @end
