@@ -5,7 +5,6 @@
 //  Created by kaichuan on 5/4/14.
 //  Copyright (c) 2014 kaichuan. All rights reserved.
 //
-
 #import <XCTest/XCTest.h>
 
 @interface SoundToolTests : XCTestCase
