@@ -153,7 +153,7 @@ void AudioQueueOutputBufferCallback(void *data, AudioQueueRef inAQ, AudioQueueBu
     [request generateTone:inBuffer];
     OSStatus err = AudioQueueEnqueueBuffer(inAQ, inBuffer, 0, nil);
     if (err != noErr) {
-        NSLog(@"AudioQueueEnqueueBuffer() error: %d", err);
+        NSLog(@"AudioQueueEnqueueBuffer() error: %d", (int)err);
     }
 }
 
