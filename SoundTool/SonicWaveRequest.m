@@ -95,7 +95,6 @@ static void AudioQueueOutputBufferCallback(void *data, AudioQueueRef inAQ, Audio
         AudioQueueFreeBuffer(audioQueue, audioQueueBuffer[i]);
     }
 }
-
 #pragma mark - Private
 - (void)generateSamplesWithNumber:(unsigned long long)number
 {
@@ -119,13 +118,11 @@ static void AudioQueueOutputBufferCallback(void *data, AudioQueueRef inAQ, Audio
         }
     }
 }
-
-
 - (void)generateTone:(AudioQueueBufferRef)buffer
 {
     SInt16 *p = buffer->mAudioData;
     for (int i = 0; i < 441; i++) {
-        p[i] = samples[(int)((byteArr[byteIndex]>>(2*codeIndex)&3))][i];
+        p[i] = samples[(int)((byteArr[byteIndex]>>(2*(3-codeIndex))&3))][i];
     }
     codeIndex ++;
     if (codeIndex == 4){
@@ -138,10 +135,7 @@ static void AudioQueueOutputBufferCallback(void *data, AudioQueueRef inAQ, Audio
     }
     buffer->mAudioDataByteSize = 882;
 }
-
 @end
-
-
 #pragma mark - 
 void AudioQueueOutputBufferCallback(void *data, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer) {
     SonicWaveRequest *request = (__bridge SonicWaveRequest *)data;
@@ -156,4 +150,3 @@ void AudioQueueOutputBufferCallback(void *data, AudioQueueRef inAQ, AudioQueueBu
         NSLog(@"AudioQueueEnqueueBuffer() error: %d", (int)err);
     }
 }
-

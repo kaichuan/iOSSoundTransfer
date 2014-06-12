@@ -11,46 +11,84 @@
 
 #import "kiss_fft.h"
 
-static int const kNumberOfBuffers = 3;
+static char const kNumberOfBuffers = 3;
+static char const kDelimiter = 10;
+
 static int const kSampleRate = 44100;
 static int const kFftSize = 441;
 
+
 static bool isDecording = false;
-static float energy = 0;
-static float maxEnergy = 0;
-static int targetIndex = 0;
-static char markerIndex = 0;
-static char bIndex = 0;
-static long long result = 0;
-static long long preResult = 0;
+static bool isRunning = false;
+static bool isDisposed = false;
+
+static float fEnergy = 0;
+static float fMaxEnergy = 0;
+static float fSecEnergy = 0;
+
+
+static char cDecoded = 0;
+static char cRunDelimiter = 0;
+static short sOffset = 0;
+
+static char cCodeIndex = 0;
+static char cByteIndex = 0;
+
+static long long lResult = 0;
+
+static int const targetBins[4] = { 177, 179, 181, 183 };
+static short aOffsetBuffer[kFftSize];
+static short aBuffer[kFftSize];
+static SInt16 *buffer;
+
+
+static kiss_fft_cfg cfg;
+static kiss_fft_cpx *cx_in;
+static kiss_fft_cpx *cx_out;
+static AudioStreamBasicDescription dataDescription;
+static AudioQueueRef audioQueue;
+static AudioQueueBufferRef mBuffers[kNumberOfBuffers];
+
+
+
 
 static void AudioQueueInputBufferCallback (void *userData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer, const AudioTimeStamp *inStartTime, UInt32 inNumPackets, const AudioStreamPacketDescription  *inPacketDesc);
 
 
 #pragma mark -
-
 @interface SonicWaveResponder () {
 @public
-    BOOL mIsRunning;
-    kiss_fft_cfg cfg;
-    kiss_fft_cpx *cx_in;
-    kiss_fft_cpx *cx_out;
-    AudioStreamBasicDescription dataDescription;
-    AudioQueueRef audioQueue;
-    AudioQueueBufferRef mBuffers[kNumberOfBuffers];
+    
 }
 @property (nonatomic, copy) void (^completeHander)(NSNumber *number);
 @end
 
 @implementation SonicWaveResponder
 
-- (void)dealloc
+- (void)dispose
 {
-    if (mIsRunning) {
-        [self stopReceviceData];
+    if (!isDisposed){
+        isDisposed = true;
+        kiss_fft_cleanup();
+        for (int i = 0; i < kNumberOfBuffers; i++) {
+            AudioQueueFreeBuffer(audioQueue, mBuffers[i]);
+        }
+        AudioQueueStop(audioQueue, true);
+        AudioQueueReset(audioQueue);
+        AudioQueueDispose(audioQueue, true);
     }
-    kiss_fft_cleanup();
-    AudioQueueDispose(audioQueue, true);
+}
+
+- (void)stopReceviceData
+{
+    isRunning = NO;
+}
+
+- (void)resetData
+{
+    
+    fMaxEnergy = fSecEnergy = cCodeIndex = cByteIndex = lResult = 0;
+    isDecording = false;
 }
 
 - (instancetype)init
@@ -88,27 +126,10 @@ static void AudioQueueInputBufferCallback (void *userData, AudioQueueRef inAQ, A
         AudioQueueAllocateBuffer (audioQueue, kFftSize * 2, &mBuffers[i]);
         AudioQueueEnqueueBuffer (audioQueue, mBuffers[i], 0, NULL);
     }
-    
+    isRunning = YES;
     AudioQueueStart(audioQueue, NULL);
-    mIsRunning = YES;
+    
 };
-
-- (void)stopReceviceData
-{
-    mIsRunning = NO;
-}
-
-- (void)resetData
-{
-    for (int i = 0; i < kNumberOfBuffers; i++) {
-        AudioQueueFreeBuffer(audioQueue, mBuffers[i]);
-    }
-    energy = maxEnergy = targetIndex = markerIndex = bIndex = result = 0;
-    isDecording = false;
-    AudioQueueStop(audioQueue, true);
-    AudioQueueReset(audioQueue);
-}
-
 @end
 
 
@@ -116,73 +137,92 @@ static void AudioQueueInputBufferCallback (void *userData, AudioQueueRef inAQ, A
 void AudioQueueInputBufferCallback (void *userData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer, const AudioTimeStamp *inStartTime, UInt32 inNumPackets, const AudioStreamPacketDescription *inPacketDesc) {
     
     SonicWaveResponder *responder = (__bridge SonicWaveResponder *)userData;
-    if (!responder->mIsRunning){
-        [responder resetData];
+    if (!isRunning){
+        [responder dispose];
         return;
     }
-    
-    static int const targetBins[4] = { 177, 179, 181, 183 };
-    static char const marker[4] = { 2, 2, 0, 0 };
-
-    SInt16 *p = inBuffer->mAudioData;
-    for (int i = 0; i < kFftSize; i++) {
-        responder->cx_in[i].r = p[i];
-        responder->cx_in[i].i = 0;
-    }
-    
-    kiss_fft(responder->cfg,responder->cx_in, responder->cx_out);
-    maxEnergy = 0;
-    for (int i = 0; i < 4; i++) {
-        energy = sqrt(powf(responder->cx_out[targetBins[i]].r, 2)+ powf(responder->cx_out[targetBins[i]].i, 2));
-        if (maxEnergy < energy) {
-            targetIndex = i;
-            maxEnergy = energy;
-        }
-    }
-    
-    if (!isDecording) {
+    if ( inNumPackets == kFftSize ) {
         
-        if (maxEnergy < 10000){
+        buffer = inBuffer->mAudioData;
+        
+        for (int i = 0; i < kFftSize - sOffset; i++) {
+            cx_in[i].r = aOffsetBuffer[i];
+            cx_in[i].i = 0;
+        }
+        
+        for (int i = 0; i < sOffset; i++) {
+            cx_in[ i + kFftSize - sOffset ].r = buffer[i];
+            cx_in[ i + kFftSize - sOffset ].i = 0;
+        }
+        
+        for (int i = 0; i < kFftSize - sOffset; i++) {
+            aOffsetBuffer[i] = buffer[ i + sOffset ];
+        }
+        
+        
+        kiss_fft(cfg, cx_in, cx_out);
+        
+        fMaxEnergy = 0;
+        fSecEnergy = 0;
+        
+        for (int i = 0; i < 4; i++) {
+            fEnergy = sqrt(powf(cx_out[targetBins[i]].r, 2)+ powf(cx_out[targetBins[i]].i, 2));
+            if (fMaxEnergy < fEnergy) {
+                fSecEnergy = fMaxEnergy;
+                fMaxEnergy = fEnergy;
+                cDecoded = i;
+            } else if (fEnergy > fSecEnergy) {
+                fSecEnergy = fEnergy;
+            }
+        }
+        //    NSLog(@"%f", fMaxEnergy);
+        
+        if (fMaxEnergy < 5000) {
+            [responder resetData];
             AudioQueueEnqueueBuffer(inAQ,inBuffer,0,NULL);
             return;
         }
         
-        if (targetIndex == marker[markerIndex]) {
-            markerIndex++;
-            
-        } else {
-            markerIndex = 0;
-        }
-        
-        if (markerIndex == 4) {
-            isDecording = true;
-            markerIndex = 0;
-            
+        if (fMaxEnergy / fSecEnergy < 2) {
+            sOffset += 44;
+            sOffset = sOffset % kFftSize;
+            [responder resetData];
+            AudioQueueEnqueueBuffer(inAQ,inBuffer,0,NULL);
             return;
         }
-    }
-    else{
-        result = ((targetIndex << (2 * markerIndex)) | result);
-        markerIndex++;
-        if (markerIndex == 4) {
-            bIndex++;
-            markerIndex = 0;
-            if (bIndex == 5) {
-                
-                if (result == preResult) {
-                    if (responder.completeHander) {
-                        responder.completeHander(@(result));
-                    }
-                    responder->mIsRunning = false;
-                    [responder resetData];
-                }else {
-                    preResult = result;
-                }
-                
-            } else
-            result = result  << 8;
+        
+        if (!isDecording) {
+            cRunDelimiter = ( cRunDelimiter << 2 ) | cDecoded;
+            if ( cRunDelimiter == kDelimiter ) {
+                [responder resetData];
+                isDecording = true;
+                AudioQueueEnqueueBuffer(inAQ,inBuffer,0,NULL);
+                return;
+            }
         }
+        else{
+            NSLog(@"%d : %lld", cDecoded, lResult);
+            lResult = lResult | cDecoded;
+            if (cCodeIndex == 19) {
+                NSLog(@"%lld", lResult);
+                if (responder.completeHander) {
+                    responder.completeHander(@(lResult));
+                }
+                isRunning = false;
+                [responder resetData];
+                return;
+            }else {
+                lResult = lResult << 2;
+                cCodeIndex ++ ;
+            }
+
+            
+        }
+        AudioQueueEnqueueBuffer(inAQ,inBuffer,0,NULL);
+        
+    } else {
+        [responder resetData];
+        AudioQueueEnqueueBuffer(inAQ,inBuffer,0,NULL);
     }
     
-    AudioQueueEnqueueBuffer(inAQ,inBuffer,0,NULL);
 };

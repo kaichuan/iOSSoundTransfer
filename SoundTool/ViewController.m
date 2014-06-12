@@ -35,7 +35,7 @@
 {
     [super viewDidLoad];
     
-    self.player = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"SendingData" ofType:@"wav"]]];
+//    self.player = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"SendingData" ofType:@"wav"]]];
     
     self.waveRequest = [[SonicWaveRequest alloc] init];
     self.waveResponder = [[SonicWaveResponder alloc] init];
@@ -58,7 +58,7 @@
     [self.sendTextField resignFirstResponder];
     if (((UISwitch*)sender).on) {
         [self.waveRequest startSendData:@([self.sendTextField.text longLongValue]) completeHander:nil];
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:3
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:7
                                          target:self
                                              selector:@selector(playBackgroundMusic)
                                        userInfo:nil
